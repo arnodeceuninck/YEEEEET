@@ -7,10 +7,14 @@
 
 #include "mano.hpp"
 
-void output(std::string filename, std::vector<Library*> libraries) {
-    std::ifstream outputFile(filename);
+void output(std::string filename, std::vector<Library*>& libraries)
+{
+    std::ofstream outputFile(filename);
 
-    // number of libraries
+    outputNumberOfLibraries(filename, libraries);
+}
+
+void outputNumberOfLibraries(std::ofstream& filename, std::vector<Library*>& libraries)
+{
     outputFile << libraries.size();
-    outputFile <<
 }
