@@ -7,23 +7,9 @@
 
 #include "mano.hpp"
 #include <iostream>
+#include <fstream>
 
-void output(std::string filename, std::vector<Library*>& libraries)
-{
-    std::ofstream outputFile(filename);
-
-    outputNumberOfLibraries(filename, libraries);
-
-    for (auto library: libraries) {
-        // Mateo
-        outputAmountOfBooks(filename, library);
-
-        // Basil
-        outputBookNumbers(filename, library);
-    }
-}
-
-void outputNumberOfLibraries(std::ofstream& filename, std::vector<Library*>& libraries)
+void outputNumberOfLibraries(std::ofstream& outputFile, std::vector<Library*>& libraries)
 {
     outputFile << libraries.size() << std::endl;
 }
@@ -34,4 +20,19 @@ void outputAmountOfBooks(std::ostream& outputFile, Library* library) {
 
 void outputBookNumbers(std::ostream& outputFile, Library* library) {
 
+}
+
+void output(std::string filename, std::vector<Library*>& libraries)
+{
+    std::ofstream outputFile(filename);
+
+    outputNumberOfLibraries(outputFile, libraries);
+
+    for (auto library: libraries) {
+        // Mateo
+        outputAmountOfBooks(outputFile, library);
+
+        // Basil
+        outputBookNumbers(outputFile, library);
+    }
 }
