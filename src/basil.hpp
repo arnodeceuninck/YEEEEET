@@ -15,6 +15,8 @@ void outputNumberOfLibraries(std::ofstream& outputFile, std::vector<Library*>& l
 }
 
 void outputAmountOfBooks(std::ostream& outputFile, Library* library) {
+    outputFile << std::to_string(library->ID);
+
 
 }
 
