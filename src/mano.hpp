@@ -9,7 +9,6 @@ struct Book
     Book(int score) : score(score) {}
 
     int score;
-    int id;
     bool isScanned;
 };
 
@@ -43,15 +42,19 @@ std::queue<Library*> scheduleLongestBookScanningTime(std::vector<Library*> libra
 
     while (!libraries.empty())
     {
-        Library* best{};
         int lowest = std::numeric_limits<int>::max(); int index{};
+
         for (int i{};i<libraries.size();i++)
         {
-            int temp = lowest;
-            lowest = std::min(lowest, calculateScanningTime(libraries[i]));
-            if (temp != lowest) best = libraries[i]; index = i;
+            if (bools[i]) continue; // book already entered in queue
+            int time = calculateScanningTime(libraries[i]);
+            if (lowest > time)
+            {
+                lowest = time;
+                index = i;
+            }
         }
-        queue.push(best);
+        queue.push(libraries[index]);
         libraries.erase(libraries.begin()+index);
     }
     return queue;
@@ -60,17 +63,22 @@ std::queue<Library*> scheduleLongestBookScanningTime(std::vector<Library*> libra
 std::queue<Library*> shortestSignupTimeFirst(std::vector<Library*> libraries)
 {
     std::queue<Library*> queue;
+    std::vector<bool> bools (libraries.size());
+
     while (!libraries.empty())
     {
-        Library* best{};
         int lowest = std::numeric_limits<int>::max(); int index{};
+
         for (int i{};i<libraries.size();i++)
         {
-            int temp = lowest;
-            lowest = std::min(lowest, libraries[i]->time);
-            if (temp != lowest) best = libraries[i]; index = i;
+            if (bools[i]) continue; // book already entered in queue
+            if (lowest > libraries[i]->time)
+            {
+                lowest = libraries[i]->time;
+                index = i;
+            }
         }
-        queue.push(best);
+        queue.push(libraries[index]);
         libraries.erase(libraries.begin()+index);
     }
     return queue;
