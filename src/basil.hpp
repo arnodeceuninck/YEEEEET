@@ -44,10 +44,10 @@ void output(std::string filename, std::queue<Library*> libraries)
     int amountOfLibraries = libraries.size();
     for (int element = 0; element<amountOfLibraries; ++element) {
         // Mateo
-        outputAmountOfBooks(outputFile, libraries.front());
+        outputAmountOfBooks(outputFile, libraries.back());
 
         // Basil
-        outputBookNumbers(outputFile, libraries.front());
+        outputBookNumbers(outputFile, libraries.back());
         libraries.pop();
     }
 }
