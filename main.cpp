@@ -65,20 +65,24 @@ void readInput(std::vector<Library*>& libraries, std::vector<Book*>& books, int 
     idCount = 0;
     while (numLibraries--) {
         std::cin >> booksInLibrary >> signupTime >> scanPerDay;
-        Library* library = new Library(signupTime, scanPerDay, idCount++);
-        libraries.push_back(library);
+        if(booksInLibrary) {
+            Library *library = new Library(signupTime, scanPerDay, idCount++);
+            libraries.push_back(library);
 
-        int bookID;
-        while (booksInLibrary--) {
-            if(std::cin >> bookID) {
-                library->addBook(books[bookID]);
-            } else {
-                throw std::runtime_error("numLibraries is larger than the number of libraries");
+            int bookID;
+            while (booksInLibrary--) {
+                if (std::cin >> bookID) {
+                    library->addBook(books[bookID]);
+                } else {
+                    throw std::runtime_error("numLibraries is larger than the number of libraries");
+                }
             }
-        }
 
-        std::sort(library->books.begin(), library->books.end(),
-                [](Book* a, Book* b) {return a->score > b->score;});
+            std::sort(library->books.begin(), library->books.end(),
+                      [](Book *a, Book *b) { return a->score > b->score; });
+        } else {
+            idCount++;
+        }
     }
 }
 
