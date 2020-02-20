@@ -29,7 +29,7 @@ void outputBookNumbers(std::ostream& outputFile, Library* library) {
     int bookId = 0;
     for (auto book: library->books) {
         if (book->isScanned) {
-            outputFile << std::to_string(++bookId) << " ";
+            outputFile << std::to_string(book->ID) << " ";
         }
     }
     outputFile << std::endl;
@@ -45,7 +45,6 @@ void output(std::string filename, std::queue<Library*> libraries)
     for (int element = 0; element<amountOfLibraries; ++element) {
         // Mateo
         outputAmountOfBooks(outputFile, libraries.front());
-        libraries.pop();
 
         // Basil
         outputBookNumbers(outputFile, libraries.front());
