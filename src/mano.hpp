@@ -1,8 +1,10 @@
 #include <vector>
+#include <queue>
 
 struct Book
 {
     int score;
+    bool isScanned;
 };
 
 struct Library
@@ -14,7 +16,16 @@ struct Library
     books(std::move(books)), time(time), booksPerDay(booksPerDay){};
 };
 
-void solution()
+
+int calculateSignupTime(Library* lib)
 {
+    int amount;
+    for (auto book:lib->books) if (book.isScanned) amount++;
+}
+
+void schedule(const std::vector<Library*> &libraries)
+{
+    std::queue<Library*> queue;
 
 }
+
