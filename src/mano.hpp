@@ -11,10 +11,10 @@ struct Book
 
 struct Library
 {
-    std::vector<Book> books;
+    std::vector<Book*> books;
     int time;
     int booksPerDay;
-    Library(std::vector<Book> books, int time, int booksPerDay):
+    Library(std::vector<Book*> books, int time, int booksPerDay):
     books(std::move(books)), time(time), booksPerDay(booksPerDay){};
 };
 
