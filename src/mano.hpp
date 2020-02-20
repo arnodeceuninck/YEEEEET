@@ -30,10 +30,11 @@ struct Library
 };
 
 
-int calculateScore(Library* lib)
+int calculateScore(Library* lib, int daysLeft)
 {
-    int amount{};
-    for (auto book:lib->books) if (book->isScanned) amount++;
-    (amount + lib->booksPerDay - 1) / lib->booksPerDay;  // upper rounding
+    daysLeft -= lib->time;
+    int score{0};
+    for (int i=0; i < daysLeft*lib->booksPerDay; i++) score += lib->books[i]->score;
+    return score;
 }
 
