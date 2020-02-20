@@ -1,5 +1,6 @@
 #include <iostream>  // includes cin to read from stdin and cout to write to stdout
 #include <fstream>
+#include <algorithm>
 #include "src/mano.hpp"
 using namespace std;  // since cin and cout are both in namespace std, this saves some text
 
@@ -13,8 +14,6 @@ void readInput(std::vector<Library*>& libraries, std::vector<Book*>& books);
 void loadFileInCin(const string& filename);
 
 int main() {
-    std::vector<bool> bools (5);
-
     // Leg de datastructuren hier vast
     std::vector<Library*> libraries;
     std::vector<Book*> books;
@@ -23,7 +22,7 @@ int main() {
     readInput(libraries, books);
 
     // Verwerk de gegevens
-
+    auto a = 0;
     // Schrijf de gegevens naar een outputbestand
 
     return 0;
@@ -68,6 +67,9 @@ void readInput(std::vector<Library*>& libraries, std::vector<Book*>& books) {
                 throw std::runtime_error("numLibraries is larger than the number of libraries");
             }
         }
+
+        std::sort(library->books.begin(), library->books.end(),
+                [](Book* a, Book* b) {return a->score > b->score;});
     }
 }
 
