@@ -5,7 +5,7 @@
 using namespace std;  // since cin and cout are both in namespace std, this saves some text
 
 
-void readInput(std::vector<Library*>& libraries, std::vector<Book*>& books, int numDays, const int &index);
+void readInput(std::vector<Library*>& libraries, std::vector<Book*>& books, int &numDays, const int &index);
 
 /**
  * Redirects the cin >> var requests to a given file
@@ -28,15 +28,15 @@ int main(int argc, char *argv[]) {
 
 
     // Verwerk de gegevens
-    std::queue<Library*> queue = schedule(libraries, 10);
+    std::queue<Library*> queue = schedule(libraries, days);
 
     // Schrijf de gegevens naar een outputbestand
-    output("output/a_example.txt", queue);
+    output((std::string) argv[1] + "out.txt", queue);
 
     return 0;
 }
 
-void readInput(std::vector<Library*>& libraries, std::vector<Book*>& books, int numDays, const int &index) {
+void readInput(std::vector<Library*>& libraries, std::vector<Book*>& books, int &numDays, const int &index) {
 
     vector<string> possibleFiles = {"datasets/a_example.txt", "datasets/b_read_on.txt", "datasets/c_incunabula.txt", "datasets/d_tough_choices.txt", "datasets/e_so_many_books.txt", "datasets/f_libraries_of_the_world.txt"};
     // Load a filename to de cin buffer (comment these lines when you want to run the program like ./YEEEEEET < input.txt)
