@@ -22,7 +22,7 @@ int main() {
     readInput(libraries, books);
 
     // Verwerk de gegevens
-    auto a = 0;
+    std::queue<Library*> queue = schedule(libraries, 10);
     // Schrijf de gegevens naar een outputbestand
 
     return 0;
