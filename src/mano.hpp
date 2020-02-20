@@ -37,10 +37,11 @@ int calculateScore(Library* lib, int daysLeft)
     int index{0};
     for (int i=0; i < daysLeft*lib->booksPerDay; i++)
     {
-        if (index > lib->books.size()-1) return score;
         while (lib->books[index]->isScanned)
         {
+            if (index > lib->books.size()-1) return score;
             index++;
+            if (index > lib->books.size()-1) return score;
         }
         score += lib->books[i]->score;
         index++;

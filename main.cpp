@@ -1,7 +1,7 @@
 #include <iostream>  // includes cin to read from stdin and cout to write to stdout
 #include <fstream>
 #include <algorithm>
-#include "src/mano.hpp"
+#include "src/basil.hpp"
 using namespace std;  // since cin and cout are both in namespace std, this saves some text
 
 
@@ -24,7 +24,9 @@ int main(int argc, char *argv[]) {
 
     // Verwerk de gegevens
     std::queue<Library*> queue = schedule(libraries, 10);
+
     // Schrijf de gegevens naar een outputbestand
+    output("output/a_example.txt", queue);
 
     return 0;
 }
@@ -36,7 +38,7 @@ void readInput(std::vector<Library*>& libraries, std::vector<Book*>& books, int 
     std::ifstream in(possibleFiles[index]);
     std::cin.rdbuf(in.rdbuf()); //redirect std::cin to in.txt!
 
-    int numBooks, numLibraries, numDays;
+    int numBooks, numLibraries;
 
     cin >> numBooks >> numLibraries >> numDays;  // read t. cin knows that t is an int, so it reads it as such.
 
