@@ -3,7 +3,6 @@
 #include <numeric>
 #include <limits>
 #include <array>
-#include <algorithm>
 
 struct Book
 {
@@ -22,15 +21,6 @@ struct Library
         books.push_back(book);
     }
 
-    int calculateScoreArno() const {
-        int score{0};
-        for(auto book: books){
-            if(!book->isScanned){
-                score += book->score;
-            }
-        }
-    }
-
     int ID;
     std::vector<Book*> books;
     int time;
@@ -44,14 +34,26 @@ int calculateScore(Library* lib, int daysLeft)
 {
     daysLeft -= lib->time;
     int score{0};
-    for (int i=0; i < daysLeft*lib->booksPerDay; i++) score += lib->books[i]->score;
+    int index{0};
+    for (int i=0; i < daysLeft*lib->booksPerDay; i++)
+    {
+        while (lib->books[index]->isScanned)
+        {
+            if (index > lib->books.size()-1) return score;
+            index++;
+            if (index > lib->books.size()-1) return score;
+        }
+        score += lib->books[i]->score;
+        index++;
+    }
     return score;
 }
 
-std::queue<Library*> scheduleLongestBookScanningTime(std::vector<Library*> libraries)
+std::queue<Library*> schedule(std::vector<Library*> libraries, int maxDays)
 {
     std::queue<Library*> queue;
     std::vector<bool> bools (libraries.size());
+    int daysPassed;
 
     while (!libraries.empty())
     {
@@ -59,11 +61,11 @@ std::queue<Library*> scheduleLongestBookScanningTime(std::vector<Library*> libra
 
         for (int i{};i<libraries.size();i++)
         {
-            if (bools[i]) continue; // book already entered in queue
-            int time; // = calculateScanningTime(libraries[i]);
-            if (lowest > time)
+            if (bools[i]) continue; // library already entered in queue
+            int score = calculateScore(libraries[i], maxDays-daysPassed);
+            if (lowest > score)
             {
-                lowest = time;
+                lowest = score;
                 index = i;
             }
         }
@@ -73,10 +75,11 @@ std::queue<Library*> scheduleLongestBookScanningTime(std::vector<Library*> libra
     return queue;
 }
 
-std::queue<Library*> shortestSignupTimeFirst(std::vector<Library*> libraries)
+std::queue<Library*> scheduleSomewhatSmart(std::vector<Library*> libraries, int maxDays)
 {
     std::queue<Library*> queue;
     std::vector<bool> bools (libraries.size());
+    int daysPassed;
 
     while (!libraries.empty())
     {
@@ -84,10 +87,11 @@ std::queue<Library*> shortestSignupTimeFirst(std::vector<Library*> libraries)
 
         for (int i{};i<libraries.size();i++)
         {
-            if (bools[i]) continue; // book already entered in queue
-            if (lowest > libraries[i]->time)
+            if (bools[i]) continue; // library already entered in queue
+            int score = calculateScore(libraries[i], maxDays-daysPassed);
+            if (lowest > score)
             {
-                lowest = libraries[i]->time;
+                lowest = score;
                 index = i;
             }
         }
