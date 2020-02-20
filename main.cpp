@@ -5,7 +5,7 @@
 using namespace std;  // since cin and cout are both in namespace std, this saves some text
 
 
-void readInput(std::vector<Library*>& libraries, std::vector<Book*>& books);
+void readInput(std::vector<Library*>& libraries, std::vector<Book*>& books, const int &index);
 
 /**
  * Redirects the cin >> var requests to a given file
@@ -13,13 +13,13 @@ void readInput(std::vector<Library*>& libraries, std::vector<Book*>& books);
  */
 void loadFileInCin(const string& filename);
 
-int main() {
+int main(int argc, char *argv[]) {
     // Leg de datastructuren hier vast
     std::vector<Library*> libraries;
     std::vector<Book*> books;
 
     // Lees de gegevens uit het inputbestand
-    readInput(libraries, books);
+    readInput(libraries, books, 0);
 
     // Verwerk de gegevens
     std::queue<Library*> queue = schedule(libraries, 10);
@@ -28,11 +28,11 @@ int main() {
     return 0;
 }
 
-void readInput(std::vector<Library*>& libraries, std::vector<Book*>& books) {
+void readInput(std::vector<Library*>& libraries, std::vector<Book*>& books, const int &index) {
 
     vector<string> possibleFiles = {"datasets/a_example.txt", "datasets/b_read_on.txt", "datasets/c_incunabula.txt", "datasets/d_tough_choices.txt", "datasets/e_so_many_books.txt", "datasets/f_libraries_of_the_world.txt"};
     // Load a filename to de cin buffer (comment these lines when you want to run the program like ./YEEEEEET < input.txt)
-    std::ifstream in(possibleFiles[0]);
+    std::ifstream in(possibleFiles[index]);
     std::cin.rdbuf(in.rdbuf()); //redirect std::cin to in.txt!
 
     int numBooks, numLibraries, numDays;
