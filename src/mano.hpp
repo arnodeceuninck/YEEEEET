@@ -38,6 +38,7 @@ int calculateScore(Library* lib, int daysLeft)
     int index{0};
     for (int i=0; i < daysLeft*lib->booksPerDay; i++)
     {
+        if (index > lib->books.size()-1) return score;
         while (lib->books[index]->isScanned)
         {
             if (index > lib->books.size()-1) return score;
@@ -62,7 +63,7 @@ std::queue<Library*> schedule(std::vector<Library*> libraries, int maxDays)
 
         for (int i{};i<libraries.size();i++)
         {
-            if (bools[i]) continue; // library already entered in queue
+            if (bools[i] or libraries[i]->books.empty()) continue; // library already entered in queue
             int score = calculateScore(libraries[i], maxDays-daysPassed);
             if (highest < score)
             {
@@ -73,33 +74,7 @@ std::queue<Library*> schedule(std::vector<Library*> libraries, int maxDays)
         daysPassed+=libraries[index]->time;
         if (daysPassed>maxDays) return queue;
         queue.push(libraries[index]);
-        libraries.erase(libraries.begin()+index);
-    }
-    return queue;
-}
-
-std::queue<Library*> scheduleSomewhatSmart(std::vector<Library*> libraries, int maxDays)
-{
-    std::queue<Library*> queue;
-    std::vector<bool> bools (libraries.size());
-    int daysPassed;
-
-    while (!libraries.empty())
-    {
-        int lowest = std::numeric_limits<int>::max(); int index{};
-
-        for (int i{};i<libraries.size();i++)
-        {
-            if (bools[i]) continue; // library already entered in queue
-            int score = calculateScore(libraries[i], maxDays-daysPassed);
-            if (lowest > score)
-            {
-                lowest = score;
-                index = i;
-            }
-        }
-        queue.push(libraries[index]);
-        libraries.erase(libraries.begin()+index);
+        bools[index]=true;
     }
     return queue;
 }
