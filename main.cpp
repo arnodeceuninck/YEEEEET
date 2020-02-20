@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
     std::queue<Library*> queue = schedule(libraries, days);
 
     // Schrijf de gegevens naar een outputbestand
-    output("output/a_example.txt", queue);
+    output((std::string) argv[1] + "out.txt", queue);
 
     return 0;
 }
