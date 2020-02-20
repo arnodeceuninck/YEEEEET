@@ -16,8 +16,13 @@ void outputNumberOfLibraries(std::ofstream& outputFile, std::vector<Library*>& l
 
 void outputAmountOfBooks(std::ostream& outputFile, Library* library) {
     outputFile << std::to_string(library->ID);
-
-
+    int scannedAmount = 0;
+    for (auto book: library->books) {
+        if (book->isScanned) {
+            scannedAmount++;
+        }
+    }
+    outputFile << " " << std::to_string(scannedAmount) << std::endl;
 }
 
 void outputBookNumbers(std::ostream& outputFile, Library* library) {
@@ -25,8 +30,6 @@ void outputBookNumbers(std::ostream& outputFile, Library* library) {
     for (auto book: library->books) {
         if (book->isScanned) {
             outputFile << std::to_string(++bookId) << " ";
-        } else {
-            break;
         }
     }
     outputFile << std::endl;
