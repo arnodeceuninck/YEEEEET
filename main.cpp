@@ -13,6 +13,8 @@ void readInput();
 void loadFileInCin(const string& filename);
 
 int main() {
+    std::vector<bool> bools (5);
+
     // Leg de datastructuren hier vast
 
     // Lees de gegevens uit het inputbestand
