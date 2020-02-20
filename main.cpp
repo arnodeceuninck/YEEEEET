@@ -31,8 +31,9 @@ int main() {
 
 void readInput(std::vector<Library*>& libraries, std::vector<Book*>& books) {
 
+    vector<string> possibleFiles = {"datasets/a_example.txt", "datasets/b_read_on.txt", "datasets/c_incunabula.txt", "datasets/d_tough_choices.txt", "datasets/e_so_many_books.txt", "datasets/f_libraries_of_the_world.txt"};
     // Load a filename to de cin buffer (comment these lines when you want to run the program like ./YEEEEEET < input.txt)
-    std::ifstream in("datasets/a_example.txt");
+    std::ifstream in(possibleFiles[0]);
     std::cin.rdbuf(in.rdbuf()); //redirect std::cin to in.txt!
 
     int numBooks, numLibraries, numDays;
