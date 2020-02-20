@@ -4,7 +4,7 @@
 using namespace std;  // since cin and cout are both in namespace std, this saves some text
 
 
-void readInput();
+void readInput(std::vector<Library*>& libraries, std::vector<Book*>& books);
 
 /**
  * Redirects the cin >> var requests to a given file
@@ -16,9 +16,11 @@ int main() {
     std::vector<bool> bools (5);
 
     // Leg de datastructuren hier vast
+    std::vector<Library*> libraries;
+    std::vector<Book*> books;
 
     // Lees de gegevens uit het inputbestand
-    readInput();
+    readInput(libraries, books);
 
     // Verwerk de gegevens
 
@@ -27,23 +29,46 @@ int main() {
     return 0;
 }
 
-void readInput() {
+void readInput(std::vector<Library*>& libraries, std::vector<Book*>& books) {
 
     // Load a filename to de cin buffer (comment these lines when you want to run the program like ./YEEEEEET < input.txt)
-    loadFileInCin("filename.txt");
+    std::ifstream in("datasets/a_example.txt");
+    std::cin.rdbuf(in.rdbuf()); //redirect std::cin to in.txt!
 
-    int t, n, m;
+    int numBooks, numLibraries, numDays;
 
-    cin >> t;  // read t. cin knows that t is an int, so it reads it as such.
-    for (int i = 1; i <= t; ++i) {
-        cin >> n >> m;  // read n and then m.
-        cout << "Case #" << i << ": " << (n + m) << " " << (n * m) << endl;
-        // cout knows that n + m and n * m are ints, and prints them accordingly.
-        // It also knows "Case #", ": ", and " " are strings and that endl ends the line.
+    cin >> numBooks >> numLibraries >> numDays;  // read t. cin knows that t is an int, so it reads it as such.
+
+    // Read variable number of input from one line
+    // src: https://stackoverflow.com/questions/26270724/input-unknown-number-of-variables-in-one-linein-c
+    int bookScore;
+    while (numBooks--) {
+        if (std::cin >> bookScore) {
+            books.push_back(new Book(bookScore));
+        } else {
+            throw std::runtime_error("numBooks is larger than the number of books");
+        }
+    }
+
+    int booksInLibrary;
+    int signupTime;
+    int scanPerDay;
+    while (numLibraries--) {
+        std::cin >> booksInLibrary >> signupTime >> scanPerDay;
+        Library* library = new Library(signupTime, scanPerDay);
+        libraries.push_back(library);
+
+        int bookID;
+        while (booksInLibrary--) {
+            if(std::cin >> bookID) {
+                library->addBook(books[bookID]);
+            } else {
+                throw std::runtime_error("numLibraries is larger than the number of libraries");
+            }
+        }
     }
 }
 
 void loadFileInCin(const string& filename) {
-    std::ifstream in(filename);
-    std::cin.rdbuf(in.rdbuf()); //redirect std::cin to in.txt!
+
 }

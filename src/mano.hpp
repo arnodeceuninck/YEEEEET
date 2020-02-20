@@ -6,6 +6,8 @@
 
 struct Book
 {
+    Book(int score) : score(score) {}
+
     int score;
     int id;
     bool isScanned;
@@ -13,10 +15,16 @@ struct Book
 
 struct Library
 {
+    Library(int time, int booksPerDay) : time(time), booksPerDay(booksPerDay) {}
+
+    void addBook(Book* book){
+        books.push_back(book);
+    }
+
     std::vector<Book*> books;
     int time;
     int booksPerDay;
-    Library(std::vector<Book*> books, int time, int booksPerDay):
+    Library(std::vector<Book*> books, int time, int booksPerDay) :
     books(std::move(books)), time(time), booksPerDay(booksPerDay){};
 };
 
