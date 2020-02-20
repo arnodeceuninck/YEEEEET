@@ -1,6 +1,5 @@
 #include <vector>
 
-
 struct Book
 {
     int score;

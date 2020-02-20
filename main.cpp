@@ -1,6 +1,6 @@
 #include <iostream>  // includes cin to read from stdin and cout to write to stdout
 #include <fstream>
-#include "./src/mano.hpp"
+#include "src/mano.hpp"
 using namespace std;  // since cin and cout are both in namespace std, this saves some text
 
 
