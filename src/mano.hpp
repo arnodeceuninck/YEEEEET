@@ -22,7 +22,7 @@ struct Library
 int calculateSignupTime(Library* lib)
 {
     int amount{};
-    for (auto book:lib->books) if (book.isScanned) amount++;
+    for (auto book:lib->books) if (book->isScanned) amount++;
     return (amount + lib->booksPerDay - 1) / lib->booksPerDay;  // upper rounding
 }
 
