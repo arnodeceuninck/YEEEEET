@@ -5,9 +5,9 @@
  * @brief 
  */
 
-#include "mano.hpp"
 #include <iostream>
 #include <fstream>
+#include "mano.hpp"
 
 void outputNumberOfLibraries(std::ofstream& outputFile, std::vector<Library*>& libraries)
 {
@@ -19,7 +19,15 @@ void outputAmountOfBooks(std::ostream& outputFile, Library* library) {
 }
 
 void outputBookNumbers(std::ostream& outputFile, Library* library) {
-
+    int bookId = 0;
+    for (auto book: library->books) {
+        if (book->isScanned) {
+            outputFile << std::to_string(++bookId) << " ";
+        } else {
+            break;
+        }
+    }
+    outputFile << std::endl;
 }
 
 void output(std::string filename, std::vector<Library*>& libraries)
@@ -36,3 +44,4 @@ void output(std::string filename, std::vector<Library*>& libraries)
         outputBookNumbers(outputFile, library);
     }
 }
+
