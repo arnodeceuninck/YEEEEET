@@ -14,13 +14,18 @@ void readInput(std::vector<Library*>& libraries, std::vector<Book*>& books, int 
 void loadFileInCin(const string& filename);
 
 int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        throw std::runtime_error("Wrong amount of arguments passed, please pass 2 arguments");
+    }
+    std::cout << "calculating for file " << argv[1] << std::endl;
     // Leg de datastructuren hier vast
     std::vector<Library*> libraries;
     std::vector<Book*> books;
     int days;
 
     // Lees de gegevens uit het inputbestand
-    readInput(libraries, books, days, 1);
+    readInput(libraries, books, days, std::stoi(argv[1]));
+
 
     // Verwerk de gegevens
     std::queue<Library*> queue = schedule(libraries, 10);
