@@ -42,9 +42,10 @@ void readInput(std::vector<Library*>& libraries, std::vector<Book*>& books) {
     // Read variable number of input from one line
     // src: https://stackoverflow.com/questions/26270724/input-unknown-number-of-variables-in-one-linein-c
     int bookScore;
+    int idCount{0};
     while (numBooks--) {
         if (std::cin >> bookScore) {
-            books.push_back(new Book(bookScore));
+            books.push_back(new Book(bookScore, idCount++));
         } else {
             throw std::runtime_error("numBooks is larger than the number of books");
         }
@@ -53,9 +54,10 @@ void readInput(std::vector<Library*>& libraries, std::vector<Book*>& books) {
     int booksInLibrary;
     int signupTime;
     int scanPerDay;
+    idCount = 0;
     while (numLibraries--) {
         std::cin >> booksInLibrary >> signupTime >> scanPerDay;
-        Library* library = new Library(signupTime, scanPerDay);
+        Library* library = new Library(signupTime, scanPerDay, idCount++);
         libraries.push_back(library);
 
         int bookID;

@@ -6,20 +6,22 @@
 
 struct Book
 {
-    Book(int score) : score(score) {}
+    Book(int score, int ID) : score(score), ID(ID) {}
 
+    int ID;
     int score;
     bool isScanned;
 };
 
 struct Library
 {
-    Library(int time, int booksPerDay) : time(time), booksPerDay(booksPerDay) {}
+    Library(int time, int booksPerDay, int ID) : time(time), booksPerDay(booksPerDay), ID(ID) {}
 
     void addBook(Book* book){
         books.push_back(book);
     }
 
+    int ID;
     std::vector<Book*> books;
     int time;
     int booksPerDay;
