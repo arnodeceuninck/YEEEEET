@@ -9,7 +9,7 @@
 #include <fstream>
 #include "mano.hpp"
 
-void outputNumberOfLibraries(std::ofstream& outputFile, std::vector<Library*>& libraries)
+void outputNumberOfLibraries(std::ofstream& outputFile, std::queue<Library*>& libraries)
 {
     outputFile << libraries.size() << std::endl;
 }
@@ -35,18 +35,21 @@ void outputBookNumbers(std::ostream& outputFile, Library* library) {
     outputFile << std::endl;
 }
 
-void output(std::string filename, std::vector<Library*>& libraries)
+void output(std::string filename, std::queue<Library*> libraries)
 {
     std::ofstream outputFile(filename);
 
     outputNumberOfLibraries(outputFile, libraries);
 
-    for (auto library: libraries) {
+    int amountOfLibraries = libraries.size();
+    for (int element = 0; element<amountOfLibraries; ++element) {
         // Mateo
-        outputAmountOfBooks(outputFile, library);
+        outputAmountOfBooks(outputFile, libraries.front());
+        libraries.pop();
 
         // Basil
-        outputBookNumbers(outputFile, library);
+        outputBookNumbers(outputFile, libraries.front());
+        libraries.pop();
     }
 }
 
