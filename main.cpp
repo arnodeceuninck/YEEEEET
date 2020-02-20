@@ -13,7 +13,7 @@ void readInput(std::vector<Library*>& libraries, std::vector<Book*>& books, cons
  */
 void loadFileInCin(const string& filename);
 
-int main() {
+int main(int argc, char *argv[]) {
     // Leg de datastructuren hier vast
     std::vector<Library*> libraries;
     std::vector<Book*> books;
