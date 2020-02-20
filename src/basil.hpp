@@ -6,6 +6,7 @@
  */
 
 #include "mano.hpp"
+#include <iostream>
 
 void output(std::string filename, std::vector<Library*> libraries) {
     std::ifstream outputFile(filename);
