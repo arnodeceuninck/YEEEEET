@@ -8,10 +8,30 @@
 #include "mano.hpp"
 #include <iostream>
 
-void output(std::string filename, std::vector<Library*> libraries) {
-    std::ifstream outputFile(filename);
+void output(std::string filename, std::vector<Library*>& libraries)
+{
+    std::ofstream outputFile(filename);
 
-    // number of libraries
-    outputFile << libraries.size();
-    outputFile <<
+    outputNumberOfLibraries(filename, libraries);
+
+    for (auto library: libraries) {
+        // Mateo
+        outputAmountOfBooks(filename, library);
+
+        // Basil
+        outputBookNumbers(filename, library);
+    }
+}
+
+void outputNumberOfLibraries(std::ofstream& filename, std::vector<Library*>& libraries)
+{
+    outputFile << libraries.size() << std::endl;
+}
+
+void outputAmountOfBooks(std::ostream& outputFile, Library* library) {
+
+}
+
+void outputBookNumbers(std::ostream& outputFile, Library* library) {
+
 }
