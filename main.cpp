@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
     int days;
 
     // Lees de gegevens uit het inputbestand
-    readInput(libraries, books, days, 0);
+    readInput(libraries, books, days, 1);
 
     // Verwerk de gegevens
     std::queue<Library*> queue = schedule(libraries, 10);
