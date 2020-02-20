@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
 
 
     // Verwerk de gegevens
-    std::queue<Library*> queue = schedule(libraries, 10);
+    std::queue<Library*> queue = schedule(libraries, days);
 
     // Schrijf de gegevens naar een outputbestand
     output("output/a_example.txt", queue);
