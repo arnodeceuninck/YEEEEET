@@ -32,8 +32,9 @@ struct Library
 
 int calculateScore(Library* lib, int daysLeft)
 {
-    daysLeft -= lib->time;
     if (daysLeft < lib->time) return std::numeric_limits<int>::min();
+
+    daysLeft -= lib->time;
     int score{0};
     int index{0};
     for (int i=0; i < daysLeft*lib->booksPerDay; i++)
@@ -55,6 +56,8 @@ std::queue<Library*> schedule(std::vector<Library*> libraries, int maxDays)
 {
     std::queue<Library*> queue;
     std::vector<bool> bools (libraries.size());
+    for (int i{};i<bools.size();i++) bools[i] = false;
+
     int daysPassed{0};
 
     while (!libraries.empty())
