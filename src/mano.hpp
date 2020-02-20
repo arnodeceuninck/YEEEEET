@@ -3,6 +3,8 @@
 #include <numeric>
 #include <limits>
 #include <array>
+#include <list>
+
 
 struct Book
 {
@@ -52,15 +54,16 @@ int calculateScore(Library* lib, int daysLeft)
     return score;
 }
 
-std::queue<Library*> schedule(std::vector<Library*> libraries, int maxDays)
+void schedule(std::vector<Library*> libraries, int maxDays, std::string filename)
 {
-    std::queue<Library*> queue;
+    std::ofstream outputFile(filename);
+    std::vector<std::pair<Library*, int>> queue;
     std::vector<bool> bools (libraries.size());
     for (int i{};i<bools.size();i++) bools[i] = false;
 
     int daysPassed{0};
 
-    while (!libraries.empty())
+    while (true)
     {
         int highest  = std::numeric_limits<int>::min(); int index{};
 
@@ -75,9 +78,28 @@ std::queue<Library*> schedule(std::vector<Library*> libraries, int maxDays)
             }
         }
         daysPassed+=libraries[index]->time;
-        if (daysPassed>maxDays) return queue;
-        queue.push(libraries[index]);
+        if (daysPassed>maxDays) break;
+        queue.emplace_back(std::make_pair(libraries[index], ((maxDays-daysPassed-libraries[index]->time) * libraries[index]->booksPerDay)));
         bools[index]=true;
     }
-    return queue;
+
+    outputFile << queue.size() << "\n";
+    
+    for (int i = 0;i<queue.size();i++)
+    {
+        outputFile << queue[i].first->ID << " ";
+        int index = 0;
+        for (int j=0;j<queue[i].second;j++)
+        {
+            while (queue[i].first->books[index]->isScanned)
+            {
+                index++;
+            }
+            outputFile << queue[i].first->books[index]->ID;
+            index++;
+        }
+        outputFile << "\n";
+    }
+    outputFile.close();
 }
+
