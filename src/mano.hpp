@@ -83,11 +83,11 @@ void schedule(std::vector<Library*> libraries, int maxDays, std::string filename
         bools[index]=true;
     }
 
-    outputFile << queue.size() << "\n";
+    outputFile << queue.size()-1 << "\n";
     
-    for (int i = 0;i<queue.size();i++)
+    for (int i = 0;i<queue.size()-1;i++)
     {
-        outputFile << queue[i].first->ID << " ";
+        outputFile << queue[i].first->ID << " " << queue[i].second << "\n";
         int index = 0;
         for (int j=0;j<queue[i].second;j++)
         {
@@ -95,7 +95,7 @@ void schedule(std::vector<Library*> libraries, int maxDays, std::string filename
             {
                 index++;
             }
-            outputFile << queue[i].first->books[index]->ID;
+            outputFile << queue[i].first->books[index]->ID << " ";
             index++;
         }
         outputFile << "\n";
